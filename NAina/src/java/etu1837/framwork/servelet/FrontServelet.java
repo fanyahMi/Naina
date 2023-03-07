@@ -5,6 +5,7 @@
  */
 package etu1837.framwork.servelet;
 
+import etu1837.framwork.Mapping;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -33,21 +34,27 @@ public class FrontServelet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FrontServelet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FrontServelet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+           
             
             Utilitaire u=new Utilitaire();
+            Mapping mapping = new Mapping();
             String[] tab=u.spliteur(request);
-            for (String s : tab) {
-                out.println(s + "<br>");
+                        
+
+            // -------------------------vue-------------------------------------
+
+            out.println("Voici l' url : " + request.getRequestURL().toString() + "<br>");
+
+            // ------------------------mapping-----------------------------------
+            out.println("Voici les mapping : <br>");
+            if (tab[1] != null) {
+                mapping.setClasse(tab[1]);
             }
+            if (tab[2] != null) {
+                mapping.setMethode(tab[2]);
+            }
+            out.print("<p>Classe : " + mapping.getClasse()+"</p>");
+            out.print("<p> methode : " + mapping.getMethode()+"</p>");
         }
     }
 
